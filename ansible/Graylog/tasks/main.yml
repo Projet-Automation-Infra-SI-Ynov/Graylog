@@ -5,7 +5,7 @@
   hostname:
     name: DOCKER-LOG
 
-- name: Download Grafana repository
+- name: Download Graylog repository
   git:
     repo: https://github.com/Projet-Automation-Infra-SI-Ynov/Graylog.git
     dest: /home/administrateur/graylog
