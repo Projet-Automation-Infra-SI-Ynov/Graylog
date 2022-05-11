@@ -18,7 +18,7 @@ services:
       - http.host=0.0.0.0
       - transport.host=localhost
       - network.host=0.0.0.0
-      - cluster-name=graylog
+      - cluster.name=graylog
       - action.auto_create_index=false
       - "ES_JAVA_OPTS=-Dlog4j2.formatMsgNoLookups=true -Xms512m -Xmx512m"
     ulimits:
@@ -63,7 +63,7 @@ services:
       - 12201:12201
       # GELF UDP
       - 12201:12201/udp
-      
+
 # Volumes for persisting data, see https://docs.docker.com/engine/admin/volumes/volumes/
 volumes:
   mongo_data:
