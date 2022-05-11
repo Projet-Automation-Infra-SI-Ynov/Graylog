@@ -1,0 +1,34 @@
+---
+# tasks file for Graylog
+
+- name: Change hostname
+  hostname:
+    name: DOCKER-LOG
+
+- name: Download Grafana repository
+  git:
+    repo: https://github.com/Projet-Automation-Infra-SI-Ynov/Graylog.git
+    dest: /home/administrateur/graylog
+    version: develop
+
+- name: Add Registry IP in daemon.json
+  shell: sed -i 's/IP_REGISTRY/REGISTRY2/g' /home/administrateur/graylog/daemon.json
+
+- name: Deploy Docker Compose Graylog
+  docker_compose:
+    build: yes
+    project_src: /home/administrateur/graylog
+    state: present
+
+- name: Copy the Docker daemon file
+  copy:
+    remote_src: yes
+    src: /home/administrateur/graylog/daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: Restart the Docker daemon
+  systemd:
+    name: docker
+    state: restarted
+    masked: no
+  async: 60
