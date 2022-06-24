@@ -65,14 +65,13 @@ services:
       # GELF UDP
       - 12201:12201/udp
 
-  # telegraf:
-  #   image: telegraf
-  #   container_name: telegraf
-  #   restart: always
-  #   volumes:
-  #   - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
-  #   ports:
-  #   - '8125:8125'
+  elasticsearch_exporter:
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:latest
+    command:
+     - '--es.uri=http://elk:9200'
+    restart: always
+    ports:
+    - 9114:9114
 
 # Volumes for persisting data, see https://docs.docker.com/engine/admin/volumes/volumes/
 volumes:
